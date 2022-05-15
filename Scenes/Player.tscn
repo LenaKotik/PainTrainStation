@@ -3,20 +3,17 @@
 [ext_resource path="res://Textures/gray cat.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/Inventory.gd" type="Script" id=3]
-[ext_resource path="res://Materials/Shaders/Silluete.tres" type="Shader" id=4]
+[ext_resource path="res://Materials/Shaders/Silluette.tres" type="Shader" id=4]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
-shader_param/Color = Color( 1, 1, 1, 1 )
-shader_param/Use = false
+shader_param/color = Color( 1, 0, 0, 1 )
+shader_param/use = false
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 23.0
 
 [sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 4 )
-shader_param/Color = Color( 0.372549, 0.00784314, 0.00784314, 1 )
-shader_param/Use = true
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -44,12 +41,36 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("GrayCat:material:shader_param/use")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("GrayCat:material:shader_param/color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "hurt"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("GrayCat:material:shader_param/Use")
+tracks/0/path = NodePath("GrayCat:material:shader_param/use")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -61,14 +82,14 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("GrayCat:material:shader_param/Color")
+tracks/1/path = NodePath("GrayCat:material:shader_param/color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 9742.02 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
