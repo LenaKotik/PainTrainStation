@@ -1,10 +1,12 @@
-extends KinematicBody2D
-tool
+extends Actor
 class_name Enemy
+tool
 
 export var HB : NodePath;
 export var animPl : NodePath;
 export var max_hp : float;
+export var dmg : float;
+export var knock_back : float;
 
 var hp : float setget set_hp;
 
@@ -29,8 +31,12 @@ func _get_configuration_warning():
 	if !get_node(animPl).has_animation("hurt"):
 		return "selected animation player must contain 'hurt' animation";
 	return "";
-
 func die():
+	on_death();
 	queue_free();
+func on_death():
+	pass;
 func on_HB_collided(area : Area2D):
-	set_hp(hp - 1);
+	if "projectile" in area.get_groups():
+		set_hp(hp - area.dmg);
+		velocity += (global_position-area.global_position) * area.knock_back;

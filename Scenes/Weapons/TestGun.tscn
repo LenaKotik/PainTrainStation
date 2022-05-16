@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Weapons/TestGun.gd" type="Script" id=1]
 [ext_resource path="res://Textures/weps1.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Projectiles/Bullet.tscn" type="PackedScene" id=3]
 
 [node name="Gun" type="Sprite"]
 scale = Vector2( 0.1, 0.1 )
@@ -10,6 +10,11 @@ texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 64.1404, 75.9796, 392.473, 227.019 )
 script = ExtResource( 1 )
+knock_back = 20.0
 projectile = ExtResource( 3 )
 proj_speed = 200.0
 proj_start_distance = 20.0
+delay = 0.2
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

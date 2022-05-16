@@ -1,4 +1,5 @@
 extends Sprite
 class_name Weapon
 
-var auto : bool;
+export var auto : bool;
+export var knock_back : float

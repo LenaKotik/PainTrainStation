@@ -7,7 +7,7 @@ export(ParticlesMaterial) var particles : ParticlesMaterial;
 var speeds : Dictionary;
 var frictions : Dictionary;
 
-func player_in(body : Node):
+func player_in(body : Actor):
 	body.particles.process_material = particles;
 	body.particles.emitting = true;
 	body.can_move = false;
@@ -18,7 +18,7 @@ func player_in(body : Node):
 #	speeds[body.name] = body.speed;
 #	body.speed = speed;
 
-func player_out(body: Node):
+func player_out(body: Actor):
 	body.particles.process_material = null;
 	body.particles.emitting = false;
 	body.can_move = true;

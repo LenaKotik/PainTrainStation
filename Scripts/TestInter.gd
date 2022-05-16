@@ -15,6 +15,6 @@ func _get_configuration_warning():
 	if (spritePath == ""):
 		return "sprite path must be set";
 	return "";
-func interact(_body:Node):
+func interact(_body:Actor):
 	var sprite = get_node(spritePath) as CanvasItem;
 	sprite.modulate = colors[randi() % colors.size()]

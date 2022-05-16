@@ -1,0 +1,97 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/Enemies/ShootingTestEnemy.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Materials/Shaders/Silluette.tres" type="Shader" id=3]
+[ext_resource path="res://Scenes/Projectiles/Bullet.tscn" type="PackedScene" id=4]
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 3 )
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/use = false
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 31, 30 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 31.5, 30.5 )
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+
+[sub_resource type="Animation" id=3]
+resource_name = "hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:material:shader_param/color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Icon:material:shader_param/use")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="Enemy" type="KinematicBody2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource( 1 )
+speed = 15.0
+friction = 0.1
+particles_path = NodePath("FeetParticles")
+HB = NodePath("HB")
+animPl = NodePath("AnimationPlayer")
+max_hp = 100.0
+dmg = 2.0
+knock_back = 400.0
+use_line = true
+line_color = Color( 0.0941176, 0.278431, 1, 1 )
+projectile = ExtResource( 4 )
+proj_speed = 400.0
+proj_knock_back = 20.0
+proj_dmg = 2.0
+desired_range = 200.0
+
+[node name="Icon" type="Sprite" parent="."]
+material = SubResource( 4 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="HB" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HB"]
+position = Vector2( -0.5, -0.5 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 5 )
+anims/hurt = SubResource( 3 )
+
+[node name="FeetParticles" type="Particles2D" parent="."]
+position = Vector2( 1, 24 )
+emitting = false
+amount = 16
+randomness = 1.0
+local_coords = false
+
+[node name="ShootInterval" type="Timer" parent="."]
+autostart = true
