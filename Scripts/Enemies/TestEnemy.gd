@@ -3,7 +3,10 @@ extends Enemy
 export var use_line : bool;
 export var line_color : Color;
 
+onready var sprite : Sprite = $Icon;
+
 var line : Line2D;
+var elapsed : float = 0;
 
 func _ready():
 	if !use_line: return;
@@ -12,11 +15,14 @@ func _ready():
 	line.default_color = line_color;
 	get_tree().current_scene.call_deferred("add_child",line);
 func _process(delta):
+	elapsed += delta;
 	move();
+	if velocity.x != 0:
+		 sprite.flip_h = velocity.x < 0;
 func on_death():
-	line.queue_free();
+	if use_line: line.queue_free();
 func get_direction():
 	if get_tree().current_scene.player == null: return Vector2.ZERO;
 	var path = get_tree().current_scene.nav.get_simple_path(global_position,get_tree().current_scene.player.global_position + get_tree().current_scene.player.velocity);
 	if use_line: line.points = path;
-	return (path[1] - global_position).normalized();
+	return (path[1] - global_position).normalized()+Vector2(0,sin(elapsed*2*PI));

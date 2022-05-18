@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gray cat.png-d274cb9a1caa1448cb33b55fd3e0beb1.stex"
+path="res://.import/devil.png-833eee3c4d35650fab5cbba7caddf05f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/gray cat.png"
-dest_files=[ "res://.import/gray cat.png-d274cb9a1caa1448cb33b55fd3e0beb1.stex" ]
+source_file="res://Textures/devil.png"
+dest_files=[ "res://.import/devil.png-833eee3c4d35650fab5cbba7caddf05f.stex" ]
 
 [params]
 

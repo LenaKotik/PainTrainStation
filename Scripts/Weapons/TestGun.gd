@@ -3,6 +3,7 @@ extends Gun
 export var projectile : PackedScene;
 export var proj_speed : float;
 export var proj_start_distance : float;
+export var proj_dmg : float;
 export var delay : float;
 
 onready var tmr : Timer = $Timer;
@@ -17,3 +18,4 @@ func shoot():
 	P.direction = (get_global_mouse_position() - global_position).normalized();
 	P.global_position += P.direction * proj_start_distance;
 	P.speed = proj_speed;
+	P.dmg = proj_dmg;

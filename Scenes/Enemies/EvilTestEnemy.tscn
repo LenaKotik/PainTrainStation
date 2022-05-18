@@ -1,19 +1,18 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Enemies/TestEnemy.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Textures/enemies/party-ghost.png" type="Texture" id=2]
 [ext_resource path="res://Materials/Shaders/Silluette.tres" type="Shader" id=3]
 
 [sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
 shader = ExtResource( 3 )
 shader_param/color = Color( 1, 1, 1, 1 )
 shader_param/use = false
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30.5, 30.5 )
+[sub_resource type="CapsuleShape2D" id=6]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 30.5, 30.5 )
+[sub_resource type="CapsuleShape2D" id=7]
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -47,38 +46,37 @@ tracks/1/keys = {
 }
 
 [node name="Enemy" type="KinematicBody2D"]
-collision_layer = 8
+collision_layer = 16
 collision_mask = 2
 script = ExtResource( 1 )
-speed = 20.0
+speed = 10.0
 friction = 0.1
 particles_path = NodePath("FeetParticles")
 HB = NodePath("HB")
 animPl = NodePath("AnimationPlayer")
 max_hp = 100.0
-dmg = 1.0
+dmg = 5.0
 knock_back = 400.0
-use_line = true
 line_color = Color( 0.968627, 0.164706, 0.164706, 1 )
 
 [node name="Icon" type="Sprite" parent="."]
 material = SubResource( 3 )
 position = Vector2( 0, 1 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0.5, 1.5 )
-shape = SubResource( 1 )
+shape = SubResource( 6 )
 
 [node name="HB" type="Area2D" parent="."]
-visible = false
 collision_layer = 64
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HB"]
 position = Vector2( 0.5, 1.5 )
-shape = SubResource( 2 )
+shape = SubResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 4 )
