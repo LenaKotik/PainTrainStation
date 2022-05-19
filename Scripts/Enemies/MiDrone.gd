@@ -48,8 +48,8 @@ func get_direction():
 	var dir : Vector2 = (global_position - pl_pos).normalized().rotated(phi);
 	var to : Vector2 = pl_pos + dir * (desired_range);
 	
-	var path = get_tree().current_scene.nav.get_simple_path(global_position,to);
-	
+	var path = get_tree().current_scene.get_simple_path(global_position,to, is_air);
+	if path.size() == 0: return Vector2.ZERO;
 	if use_line: line.points = path;
 	
 	return (path[1] - global_position).normalized();

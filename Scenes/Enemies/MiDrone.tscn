@@ -1,6 +1,6 @@
 [gd_scene load_steps=43 format=2]
 
-[ext_resource path="res://Scripts/Enemies/ShootingTestEnemy.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemies/MiDrone.gd" type="Script" id=1]
 [ext_resource path="res://Textures/enemies/midron.png" type="Texture" id=2]
 [ext_resource path="res://Materials/Shaders/Silluette.tres" type="Shader" id=3]
 [ext_resource path="res://Scenes/Projectiles/Bullet.tscn" type="PackedScene" id=4]
@@ -194,6 +194,7 @@ animPl = NodePath("HurtAnim")
 max_hp = 100.0
 dmg = 2.0
 knock_back = 400.0
+is_air = true
 line_color = Color( 0.0941176, 0.278431, 1, 1 )
 projectile = ExtResource( 4 )
 death_effect = ExtResource( 5 )
@@ -207,6 +208,7 @@ material = SubResource( 8 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 19 )
 animation = "idle"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -50,6 +50,7 @@ tracks/0/keys = {
 collision_layer = 256
 collision_mask = 9
 script = ExtResource( 2 )
+anim_height = 150.0
 
 [node name="Icon" type="Sprite" parent="."]
 scale = Vector2( 8.17969, 2.38086 )
@@ -109,8 +110,12 @@ position = Vector2( 0, -4 )
 shape = SubResource( 4 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
 collision_mask = 256
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 5 )
 anims/land = SubResource( 6 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

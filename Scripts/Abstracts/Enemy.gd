@@ -7,6 +7,7 @@ export var animPl : NodePath;
 export var max_hp : float;
 export var dmg : float;
 export var knock_back : float;
+export var is_air : bool;
 
 var hp : float setget set_hp;
 

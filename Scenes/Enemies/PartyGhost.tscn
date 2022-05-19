@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Scripts/Enemies/TestEnemy.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemies/PartyGhost.gd" type="Script" id=1]
 [ext_resource path="res://Textures/enemies/party-ghost.png" type="Texture" id=2]
 [ext_resource path="res://Materials/Shaders/Silluette.tres" type="Shader" id=3]
 
@@ -57,6 +57,7 @@ animPl = NodePath("AnimationPlayer")
 max_hp = 100.0
 dmg = 5.0
 knock_back = 400.0
+is_air = true
 line_color = Color( 0.968627, 0.164706, 0.164706, 1 )
 
 [node name="Icon" type="Sprite" parent="."]

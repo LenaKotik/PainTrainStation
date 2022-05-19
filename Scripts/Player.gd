@@ -10,6 +10,7 @@ onready var inventory : Node2D = $InventoryRotor/Inventory;
 onready var anim : AnimationPlayer = $AnimationPlayer;
 onready var HB : Area2D = $HB;
 onready var HB_coll : CollisionShape2D = $HB/CollisionShape2D;
+onready var phys_coll : CollisionShape2D = $CollisionShape2D;
 
 var hp : float setget set_hp;
 var inter : Interactable;
@@ -30,6 +31,10 @@ func _ready():
 	hp = max_hp;
 	HB.connect("area_entered", self, "on_collided");
 	rand_init();
+
+func set_collision(value : bool):
+	HB_coll.disabled = !value;
+	phys_coll.disabled = !value;
 
 func rand_init():
 	randomize();

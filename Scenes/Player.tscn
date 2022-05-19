@@ -123,18 +123,22 @@ max_hp = 100.0
 [node name="Octopus" type="Sprite" parent="."]
 modulate = Color( 0.756863, 0.121569, 0.121569, 1 )
 material = SubResource( 3 )
+position = Vector2( 0, -10 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 
 [node name="Mouth" type="Sprite" parent="."]
+position = Vector2( 0, -10 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 
 [node name="Eyes" type="Sprite" parent="."]
+position = Vector2( 0, -10 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 7 )
 
 [node name="Hat" type="Sprite" parent="."]
+position = Vector2( 0, -10 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 6 )
 
