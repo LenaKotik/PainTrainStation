@@ -7,14 +7,14 @@
 [node name="Gun" type="Sprite"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
-region_rect = Rect2( 64.1404, 75.9796, 392.473, 227.019 )
+offset = Vector2( 3, 0 )
 script = ExtResource( 1 )
 auto = true
 knock_back = 20.0
 projectile = ExtResource( 3 )
 proj_speed = 300.0
 proj_start_distance = 20.0
-proj_dmg = 3.0
+proj_dmg = 6.0
 delay = 0.2
 
 [node name="Timer" type="Timer" parent="."]

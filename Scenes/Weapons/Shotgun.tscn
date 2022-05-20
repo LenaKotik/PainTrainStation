@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Projectiles/Bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Weapons/TestGun2.gd" type="Script" id=2]
+[ext_resource path="res://Textures/weapons/shotgun.png" type="Texture" id=3]
+
+[node name="Gun" type="Sprite"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+offset = Vector2( 10, 0 )
+script = ExtResource( 2 )
+knock_back = 2.0
+projectile = ExtResource( 1 )
+spread = 90.0
+amount = 5
+delay = 0.3
+proj_speed = 200.0
+proj_dmg = 3.0
+proj_start_distance = 50.0
+proj_rot = 10.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

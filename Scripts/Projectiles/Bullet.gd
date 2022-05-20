@@ -4,6 +4,7 @@ export var speed : float;
 export var direction : Vector2;
 export var dmg : float;
 export var knock_back : float;
+export var rotation_applied : float;
 
 onready var visNot : VisibilityNotifier2D = $VisibilityNotifier2D;
 
@@ -14,7 +15,10 @@ func _ready():
 
 func _process(delta):
 	global_position += speed * delta * direction
-	look_at(global_position+direction);
+	if rotation_applied == 0:
+		look_at(global_position+direction);
+	else:
+		rotation += rotation_applied * delta;
 
 func collided(_area : Node):
 	queue_free();

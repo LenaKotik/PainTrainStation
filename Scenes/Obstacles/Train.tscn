@@ -1,7 +1,23 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Textures/obstacles/train.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Train.gd" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 256, 512, 256 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 512, 512, 256 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 15.0
+} ]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 14.75, 93.5 )
@@ -52,38 +68,73 @@ collision_mask = 9
 script = ExtResource( 2 )
 anim_height = 150.0
 
-[node name="Icon" type="Sprite" parent="."]
-scale = Vector2( 8.17969, 2.38086 )
-texture = ExtResource( 1 )
+[node name="wheels" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 31 )
+frames = SubResource( 9 )
+playing = true
 offset = Vector2( 0, -5 )
 
+[node name="wheel_parts1" type="CPUParticles2D" parent="."]
+position = Vector2( -188, 154 )
+amount = 32
+speed_scale = 2.0
+randomness = 1.0
+direction = Vector2( -3, -2 )
+spread = 25.0
+gravity = Vector2( 0, 45 )
+initial_velocity = 80.0
+initial_velocity_random = 0.28
+linear_accel = 3.0
+scale_amount = 2.0
+color = Color( 1, 1, 0, 1 )
+
+[node name="wheel_parts2" type="CPUParticles2D" parent="."]
+position = Vector2( 161, 154 )
+amount = 32
+speed_scale = 2.0
+randomness = 1.0
+direction = Vector2( -3, -2 )
+spread = 25.0
+gravity = Vector2( 0, 45 )
+initial_velocity = 80.0
+initial_velocity_random = 0.28
+linear_accel = 3.0
+scale_amount = 2.0
+color = Color( 1, 1, 0, 1 )
+
+[node name="Icon" type="Sprite" parent="."]
+position = Vector2( 0, 31 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -5 )
+vframes = 3
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 272, -3 )
+position = Vector2( 271, -4 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
-position = Vector2( -276, 0 )
+position = Vector2( -270, -10 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 87 )
+position = Vector2( -1, 92 )
 shape = SubResource( 2 )
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
-position = Vector2( -4, -86 )
+position = Vector2( 0, -107 )
 shape = SubResource( 2 )
 
 [node name="left" type="Area2D" parent="."]
-position = Vector2( -251, -1 )
+position = Vector2( -246, -16 )
 collision_layer = 0
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="left"]
-position = Vector2( -3, 0.5 )
+position = Vector2( 0, -2 )
 shape = SubResource( 3 )
 
 [node name="right" type="Area2D" parent="."]
-position = Vector2( 253, 2 )
+position = Vector2( 245, -13 )
 collision_layer = 0
 monitoring = false
 
@@ -92,7 +143,7 @@ position = Vector2( 0, 0.5 )
 shape = SubResource( 3 )
 
 [node name="up" type="Area2D" parent="."]
-position = Vector2( -1, -64 )
+position = Vector2( 2, -86 )
 collision_layer = 0
 monitoring = false
 
@@ -101,7 +152,7 @@ position = Vector2( 0, -4 )
 shape = SubResource( 4 )
 
 [node name="down" type="Area2D" parent="."]
-position = Vector2( -1, 72 )
+position = Vector2( -1, 77 )
 collision_layer = 0
 monitoring = false
 

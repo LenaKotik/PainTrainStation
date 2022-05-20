@@ -31,7 +31,7 @@ func _process(delta):
 	move();
 	if velocity.x != 0:
 		sprite.flip_h = velocity.x > 0;
-		rotation_degrees = abs(rotation_degrees) * 1 if velocity.x > 0 else -1;
+		rotation_degrees = velocity.x /3
 
 func on_death():
 	if use_line: line.queue_free();

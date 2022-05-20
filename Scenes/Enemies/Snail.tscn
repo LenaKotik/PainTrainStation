@@ -1,0 +1,109 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/Enemies/Snial.gd" type="Script" id=1]
+[ext_resource path="res://Textures/enemies/will-you-bee-mine.png" type="Texture" id=2]
+[ext_resource path="res://Materials/Shaders/Silluette.tres" type="Shader" id=3]
+[ext_resource path="res://Scenes/Projectiles/Bee.tscn" type="PackedScene" id=4]
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 3 )
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/use = false
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+
+[sub_resource type="Animation" id=5]
+resource_name = "hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Will_you_bee_mine:material:shader_param/color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Will_you_bee_mine:material:shader_param/use")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 19.5, 10.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 21, 13.5 )
+
+[node name="Snail" type="KinematicBody2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource( 1 )
+particles_path = NodePath("FeetParticles")
+HB = NodePath("HB")
+animPl = NodePath("AnimationPlayer")
+max_hp = 100.0
+dmg = 10.0
+knock_back = 20.0
+proj = ExtResource( 4 )
+shoot_period = 5
+proj_amount = 3
+proj_dmg = 3.0
+min_jump_d = 20.0
+max_jump_d = 50.0
+jump_distance = 150.0
+anim_height = 150.0
+
+[node name="Will_you_bee_mine" type="Sprite" parent="."]
+material = SubResource( 3 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/hurt = SubResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -0.5, 0.5 )
+shape = SubResource( 1 )
+
+[node name="HB" type="Area2D" parent="."]
+visible = false
+collision_layer = 64
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HB"]
+position = Vector2( -1, 1.5 )
+shape = SubResource( 2 )
+
+[node name="FeetParticles" type="Particles2D" parent="."]
+position = Vector2( 0, 15 )
+emitting = false
+amount = 16
+randomness = 1.0
+local_coords = false
+
+[node name="shoot_cd" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="shoot_delay" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="anim_tmr" type="Timer" parent="."]
+one_shot = true
