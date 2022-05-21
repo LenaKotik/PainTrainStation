@@ -6,11 +6,11 @@ export var dmg : float;
 export var knock_back : float;
 
 var velocity : Vector2 = Vector2.LEFT;
-var target : Player;
+var target : WeakRef;
 
 func _process(delta):
-	if target != null:
-		velocity += ((target.global_position - global_position).normalized()*speed - velocity.normalized()*speed).normalized()*steer_force;
+	if target.get_ref():
+		velocity += ((target.get_ref().global_position - global_position).normalized()*speed - velocity.normalized()*speed).normalized()*steer_force;
 	global_position += velocity * delta * speed
 	rotation = (-velocity).angle();
 

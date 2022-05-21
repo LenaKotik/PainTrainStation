@@ -1,0 +1,162 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://Scenes/interactables/WeaponPickUp.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Textures/obstacles/devil.png" type="Texture" id=2]
+[ext_resource path="res://Textures/weapons/sword.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Weapons/Sword.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Theme/UndertaleFont/undertale battle font_0.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Scripts/DevilWSword.gd" type="Script" id=6]
+
+[sub_resource type="Animation" id=13]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("WeaponPickUp:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 42 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("WeaponPickUp:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 45 ), Vector2( 0, 40 ), Vector2( 0, 45 ) ]
+}
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 32, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 30.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 11, 33.0375 )
+
+[sub_resource type="Curve" id=15]
+min_value = 1.0
+max_value = 2.0
+_data = [ Vector2( 0, 1.28231 ), 0.0, 0.0, 0, 0, Vector2( 1, 2 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="DynamicFont" id=16]
+font_data = ExtResource( 5 )
+
+[node name="DevilWSword" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/RESET = SubResource( 13 )
+anims/idle = SubResource( 14 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
+frames = SubResource( 11 )
+frame = 2
+playing = true
+
+[node name="WeaponPickUp" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 42 )
+weapon = ExtResource( 4 )
+
+[node name="Sprite" parent="WeaponPickUp" index="0"]
+rotation = 1.5708
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="WeaponPickUp" index="1"]
+position = Vector2( 0, -0.361961 )
+shape = SubResource( 12 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="WeaponPickUp"]
+position = Vector2( 0, 3.37349 )
+local_coords = false
+emission_shape = 1
+emission_sphere_radius = 9.28
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 10.0
+initial_velocity_random = 0.29
+scale_amount = 2.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 15 )
+color = Color( 0, 0.431373, 1, 0.356863 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -200.0
+margin_top = -156.0
+margin_right = 194.0
+margin_bottom = -23.0
+custom_fonts/font = SubResource( 16 )
+text = "dasdasasda"
+align = 1
+valign = 2
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -0.5, -0.5 )
+scale = Vector2( 0.95, 0.95 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="taken" from="WeaponPickUp" to="." method="_on_sword_taken"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_screen_entered"]
+
+[editable path="WeaponPickUp"]

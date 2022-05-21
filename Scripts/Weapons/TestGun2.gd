@@ -18,8 +18,8 @@ func shoot():
 		var P = projectile.instance() as Area2D;
 		get_tree().current_scene.add_child(P);
 		P.rotation_applied = proj_rot;
-		P.global_position = global_position + global_position.direction_to(get_global_mouse_position()) * proj_start_distance;
+		P.direction = get_parent().get_parent().global_position.direction_to(get_global_mouse_position()).rotated(deg2rad(rand_range(-spread/2, spread/2)));
+		P.global_position = global_position + get_parent().get_parent().global_position.direction_to(get_global_mouse_position()) * proj_start_distance;
 		P.dmg = proj_dmg;
 		P.speed = proj_speed;
 		P.knock_back = knock_back;
-		P.direction = global_position.direction_to(get_global_mouse_position()).rotated(deg2rad(rand_range(-spread/2, spread/2)));

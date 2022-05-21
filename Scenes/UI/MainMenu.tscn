@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Theme/stylebox1.tres" type="StyleBox" id=1]
 [ext_resource path="res://Theme/UndertaleFont/undertale battle font_0.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/UI/MainMenu.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -152,4 +152,22 @@ custom_styles/disabled = ExtResource( 1 )
 custom_styles/normal = ExtResource( 1 )
 text = "Play"
 
+[node name="Settings" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -72.0
+margin_top = 54.0
+margin_right = 72.0
+margin_bottom = 84.0
+custom_fonts/font = SubResource( 4 )
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/disabled = ExtResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+text = "Settings"
+
 [connection signal="pressed" from="Play" to="." method="play_pressed"]
+[connection signal="pressed" from="Settings" to="." method="settings_pressed"]

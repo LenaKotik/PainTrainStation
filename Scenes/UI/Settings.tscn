@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/UI/Settings.gd" type="Script" id=1]
+[ext_resource path="res://Theme/UndertaleFont/undertale battle font_0.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/UI/ActionBinding.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Theme/stylebox1.tres" type="StyleBox" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[node name="Settings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+action_binding = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0705882, 0.282353, 0.54902, 1 )
+
+[node name="Inputs" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 2.0
+
+[node name="Example" type="HBoxContainer" parent="Inputs"]
+margin_right = 683.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Inputs/Example"]
+margin_right = 225.0
+margin_bottom = 15.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+text = "Action"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="Inputs/Example"]
+margin_left = 229.0
+margin_right = 454.0
+margin_bottom = 15.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+text = "Button"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="Inputs/Example"]
+margin_left = 458.0
+margin_right = 683.0
+margin_bottom = 15.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+text = "Alt Button"
+align = 1
+valign = 1
+
+[node name="Back" type="Button" parent="."]
+margin_right = 53.0
+margin_bottom = 25.0
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = ExtResource( 4 )
+text = "Back"
+
+[connection signal="pressed" from="Back" to="." method="_on_Go_Back"]

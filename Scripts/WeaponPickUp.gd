@@ -1,5 +1,7 @@
 extends Interactable
 
+signal taken;
+
 export(PackedScene) var weapon : PackedScene;
 
 func interact(body:Actor):
@@ -7,4 +9,5 @@ func interact(body:Actor):
 		var W = weapon.instance();
 		body.add_weapon(W);
 		# TODO: effets here
+		emit_signal("taken");
 		queue_free();

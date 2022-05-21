@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Weapon",
 "class": "Melee",
 "language": "GDScript",
-"path": "res://Scripts/Abstracts/Melee.gd"
+"path": "res://Scripts/Weapons/Melee.gd"
 }, {
 "base": "Actor",
 "class": "Player",
@@ -75,7 +75,7 @@ _global_script_class_icons={
 [application]
 
 config/name="PainTrainStation"
-run/main_scene="res://Scenes/MainMenu.tscn"
+run/main_scene="res://Scenes/UI/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -183,6 +183,11 @@ jump={
 restart={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":82,"unicode":0,"echo":false,"script":null)
+ ]
+}
+horse={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":70,"unicode":0,"echo":false,"script":null)
  ]
 }
 

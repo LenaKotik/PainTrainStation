@@ -52,6 +52,8 @@ extents = Vector2( 21, 13.5 )
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 1 )
+speed = 25.0
+friction = 0.1
 particles_path = NodePath("FeetParticles")
 HB = NodePath("HB")
 animPl = NodePath("AnimationPlayer")
@@ -59,12 +61,15 @@ max_hp = 100.0
 dmg = 10.0
 knock_back = 20.0
 proj = ExtResource( 4 )
+jump_period = 7
 shoot_period = 5
 proj_amount = 3
 proj_dmg = 3.0
-min_jump_d = 20.0
-max_jump_d = 50.0
-jump_distance = 150.0
+min_jump_d = 50.0
+max_jump_d = 60.0
+use_line = true
+line_color = Color( 0, 0.184314, 1, 1 )
+jump_distance = 300.0
 anim_height = 150.0
 
 [node name="Will_you_bee_mine" type="Sprite" parent="."]

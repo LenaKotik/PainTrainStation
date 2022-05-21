@@ -12,7 +12,11 @@ func get_simple_path(a : Vector2, b : Vector2, by_air : bool):
 		return get_node(nav_air).get_simple_path(a, b);
 	else:
 		return get_node(nav_ground).get_simple_path(a, b);
-
+func get_closest_point(to : Vector2, by_air : bool):
+	if by_air:
+		return get_node(nav_air).get_closest_point(to);
+	else:
+		return get_node(nav_ground).get_closest_point(to);
 func _process(_delta):
 	if (Input.is_action_just_pressed("restart")):
 		get_tree().reload_current_scene();
