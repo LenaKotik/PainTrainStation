@@ -9,14 +9,20 @@ onready var anim_tmr : Timer = $Timer;
 
 var start_rot : float;
 var end_rot : float;
-var can_swing : bool = false;
+var can_swing : bool = true;
 
 func _ready():
 	anim_tmr.connect("timeout", self, "anim_end");
 	HB.connect("area_entered", self, "collided");
 
-func collided(_area : Area2D):
-	HB_coll.set_deferred("disabled", true);
+func collided(area : Area2D):
+	if "missle" in area.get_groups(): return;
+	if "projectile" in area.get_groups():
+		area.direction = -area.direction;
+		area.modulate = Color.blue;
+		area.collision_mask = 64
+	else:
+		HB_coll.set_deferred("disabled", true);
 
 func anim_end():
 	rotation = end_rot;

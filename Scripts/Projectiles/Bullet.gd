@@ -5,6 +5,7 @@ export var direction : Vector2;
 export var dmg : float;
 export var knock_back : float;
 export var rotation_applied : float;
+export var deflectable : bool;
 
 onready var visNot : VisibilityNotifier2D = $VisibilityNotifier2D;
 
@@ -20,5 +21,6 @@ func _process(delta):
 	else:
 		rotation += rotation_applied * delta;
 
-func collided(_area : Node):
+func collided(area : Node):
+	if deflectable and "sword" in area.get_groups(): return;
 	queue_free();

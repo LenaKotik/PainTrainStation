@@ -11,6 +11,7 @@ collision_layer = 128
 collision_mask = 64
 script = ExtResource( 1 )
 dmg = 2.0
+deflectable = true
 
 [node name="Bullet1" type="Sprite" parent="."]
 scale = Vector2( 2, 2 )

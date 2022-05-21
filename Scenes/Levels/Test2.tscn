@@ -1,13 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/TrainLevel.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Obstacles/Train.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Obstacles/Ice.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Textures/bg/wall_tile.png" type="Texture" id=5]
-[ext_resource path="res://Scenes/interactables/WeaponPickUp.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Textures/weapons/gun.png" type="Texture" id=7]
-[ext_resource path="res://Scenes/Weapons/Pistol.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Enemies/Snail.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/interactables/DevilWSword.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Enemies/MiDrone.tscn" type="PackedScene" id=11]
@@ -31,9 +28,6 @@ export var speed : float;
 func _process(delta):
 	motion_offset.x += speed * delta;
 "
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 30.5, 15.5 )
 
 [sub_resource type="NavigationPolygon" id=4]
 vertices = PoolVector2Array( 39, 113, 542, 115, 544, 290, 38, 284, 1116, 111, 1121, 280, 621, 280, 618, 108, 624, -104, 1127, -104, 1127, 62, 623, 66, 1699, 109, 1702, 279, 1200, 282, 1198, 109 )
@@ -93,20 +87,14 @@ position = Vector2( 289, 210 )
 position = Vector2( 876, -9 )
 nodes_to_animate = PoolStringArray( "Gun" )
 
+[node name="Snail2" parent="Train3" instance=ExtResource( 9 )]
+position = Vector2( 140, -20 )
+
 [node name="Train2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 870, 206 )
 
-[node name="Gun2" parent="Train2" instance=ExtResource( 6 )]
-position = Vector2( -65, -33 )
-weapon = ExtResource( 8 )
-
-[node name="Sprite" parent="Train2/Gun2" index="0"]
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-
-[node name="CollisionShape2D" parent="Train2/Gun2" index="1"]
-position = Vector2( 0, -1 )
-shape = SubResource( 2 )
+[node name="Snail3" parent="Train2" instance=ExtResource( 9 )]
+position = Vector2( 138, -9 )
 
 [node name="Train4" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1450, 204 )
@@ -123,6 +111,9 @@ position = Vector2( 0.5, -0.5 )
 
 [node name="Snail" parent="Train4" instance=ExtResource( 9 )]
 position = Vector2( 149, -15 )
+
+[node name="Snail3" parent="Train4" instance=ExtResource( 9 )]
+position = Vector2( -171, -28 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 445, 199 )
@@ -147,16 +138,9 @@ navpoly = SubResource( 3 )
 position = Vector2( 879, -48 )
 
 [node name="air_enemies" type="Node2D" parent="."]
-visible = false
 
 [node name="Enemy" parent="air_enemies" instance=ExtResource( 11 )]
 position = Vector2( 509, 24 )
-
-[node name="Enemy3" parent="air_enemies" instance=ExtResource( 11 )]
-position = Vector2( 1248, 425 )
-
-[node name="Enemy4" parent="air_enemies" instance=ExtResource( 11 )]
-position = Vector2( 3, 430 )
 
 [node name="Enemy5" parent="air_enemies" instance=ExtResource( 11 )]
 position = Vector2( 1523, 422 )
@@ -164,32 +148,11 @@ position = Vector2( 1523, 422 )
 [node name="Enemy6" parent="air_enemies" instance=ExtResource( 11 )]
 position = Vector2( 1327, 559 )
 
-[node name="Enemy7" parent="air_enemies" instance=ExtResource( 11 )]
-position = Vector2( 889, 567 )
-
-[node name="Enemy8" parent="air_enemies" instance=ExtResource( 11 )]
-position = Vector2( 264, 536 )
-
-[node name="Enemy9" parent="air_enemies" instance=ExtResource( 11 )]
-position = Vector2( 1512, 40 )
-
-[node name="Enemy2" parent="air_enemies" instance=ExtResource( 12 )]
-position = Vector2( 1333, 264 )
-
 [node name="Enemy10" parent="air_enemies" instance=ExtResource( 12 )]
 position = Vector2( 111, 251 )
 
 [node name="Enemy11" parent="air_enemies" instance=ExtResource( 12 )]
 position = Vector2( 1283, 18 )
-
-[node name="Enemy12" parent="air_enemies" instance=ExtResource( 12 )]
-position = Vector2( 961, 428 )
-
-[node name="Enemy13" parent="air_enemies" instance=ExtResource( 12 )]
-position = Vector2( 578, 583 )
-
-[node name="Enemy14" parent="air_enemies" instance=ExtResource( 12 )]
-position = Vector2( 718, 417 )
 
 [node name="Enemy15" parent="air_enemies" instance=ExtResource( 12 )]
 position = Vector2( 441, 470 )
@@ -197,6 +160,5 @@ position = Vector2( 441, 470 )
 [node name="Enemy16" parent="air_enemies" instance=ExtResource( 12 )]
 position = Vector2( 8, 40 )
 
-[editable path="Train2/Gun2"]
 [editable path="Train4/Ice"]
 [editable path="Player"]
