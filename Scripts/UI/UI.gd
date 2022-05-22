@@ -62,9 +62,15 @@ func select_weapon(idx : int):
 		wep_cont.get_children()[i].select(i == idx);
 
 func add_weapon(texture : Texture):
+	for wd in wep_cont.get_children():
+		if wd.is_equal(texture):
+			wd.increment();
+			return;
+	
 	var WD = weaponDisplay.instance();
 	wep_cont.add_child(WD);
 	WD.set_texture(texture);
 	select_weapon(wep_cont.get_child_count()-1);
+
 func remove_weapon(idx : int):
-	wep_cont.get_children()[idx].queue_free();
+	wep_cont.get_children()[idx].decrement();

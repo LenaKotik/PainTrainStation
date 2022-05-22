@@ -8,6 +8,9 @@ signal weapon_removed(idx);
 signal died;
 
 export var max_hp : float;
+export var regen : float;
+export var is_menu : bool;
+
 
 onready var sprite : Sprite = $Octopus;
 onready var attrs : Array = [$Mouth, $Eyes, $Hat];
@@ -36,11 +39,13 @@ func die():
 	queue_free();
 
 func _ready():
-	hp = max_hp;
-	HB.connect("area_entered", self, "on_collided");
-	inventory.connect("ptr_changed", self, "on_ptr_changed");
-	inventory.connect("weapon_removed", self, "on_weapon_removed");
+	if !is_menu:
+		hp = max_hp;
+		HB.connect("area_entered", self, "on_collided");
+		inventory.connect("ptr_changed", self, "on_ptr_changed");
+		inventory.connect("weapon_removed", self, "on_weapon_removed");
 	rand_init();
+	set_process(!is_menu);
 
 func on_ptr_changed(new : int):
 	emit_signal("ptr_changed", new);
@@ -57,7 +62,7 @@ func rand_init():
 	var eyes = ["res://Textures/mc/Eyes/1.png", "res://Textures/mc/Eyes/2.png", "res://Textures/mc/Eyes/3.png", "res://Textures/mc/Eyes/4.png"];
 	var hats = ["res://Textures/mc/Hat/9.png", "res://Textures/mc/Hat/10.png", "res://Textures/mc/Hat/11.png", "res://Textures/mc/Hat/12.png", "res://Textures/mc/Hat/13.png", "res://Textures/mc/Hat/14.png", "res://Textures/mc/Hat/15.png"];
 	var mouths = ["res://Textures/mc/Mouth/3.png", "res://Textures/mc/Mouth/5.png", "res://Textures/mc/Mouth/6.png", "res://Textures/mc/Mouth/7.png", "res://Textures/mc/Mouth/8.png"];
-	var colors = [Color.blue, Color.crimson, Color.darkolivegreen, Color.darkorange, Color.darkmagenta, Color.darkcyan, Color.aqua, Color.green];
+	var colors = [Color.blue, Color.crimson, Color.darkolivegreen, Color.darkorange, Color.darkmagenta, Color.darkcyan, Color.aqua, Color.green, Color.blueviolet, Color.cornflower, Color.darkblue, Color.deeppink];
 	for arr in [mouths, eyes, hats, colors]: arr.shuffle()
 	
 	sprite.modulate = colors.pop_back();
@@ -84,6 +89,14 @@ func add_weapon(w : Weapon):
 	emit_signal("weapon_added", w.texture);
 	inventory.add_weapon(w);
 
+func add_throwable(t : Throwable, amount : int):
+	emit_signal("weapon_added", t.texture);
+	var same = inventory.get_by_id(t.id);
+	if same != null:
+		same.amount += 1;
+	else:
+		inventory.add_weapon(t);
+
 func on_collided(area : Area2D):
 	if "projectile" in area.get_groups():
 		set_hp(hp - area.dmg);
@@ -97,3 +110,8 @@ func get_direction():
 	return Vector2(
 		Input.get_action_strength("right")-Input.get_action_strength("left"),
 		Input.get_action_strength("down")-Input.get_action_strength("up")).normalized();
+
+
+func _on_regen():
+	if hp < max_hp:
+		set_hp(hp+1)

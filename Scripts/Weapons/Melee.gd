@@ -24,7 +24,7 @@ func collided(area : Area2D):
 		return;
 	if "projectile" in area.get_groups():
 		area.direction = -area.direction;
-		area.modulate = Color.blue;
+		area.set_color(Color.white);
 		area.dmg *= 2;
 		area.collision_mask = 64
 	else:

@@ -13,7 +13,6 @@ shader_param/color = Color( 1, 1, 1, 1 )
 shader_param/use = false
 
 [sub_resource type="StreamTexture" id=9]
-load_path = "res://.import/4.png-35e8b5aff1b0035a84137edcdb4f996e.stex"
 
 [sub_resource type="CircleShape2D" id=8]
 radius = 20.0
@@ -121,6 +120,7 @@ speed = 25.0
 friction = 0.1
 particles_path = NodePath("FeetParticles")
 max_hp = 100.0
+regen = 1.0
 
 [node name="Octopus" type="Sprite" parent="."]
 modulate = Color( 0.756863, 0.121569, 0.121569, 1 )
@@ -178,3 +178,8 @@ anims/RESET = SubResource( 4 )
 anims/hurt = SubResource( 5 )
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_regen"]

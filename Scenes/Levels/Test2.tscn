@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/TrainLevel.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Obstacles/Train.tscn" type="PackedScene" id=2]
@@ -6,13 +6,15 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Textures/bg/wall_tile.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/UI/UI.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/interactables/ShotgunPickUp.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Theme/UndertaleFont/undertale battle font_0.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://Scenes/interactables/BombPickUp.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Enemies/Snail.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/interactables/DevilWSword.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/interactables/ShotgunPickUp.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Enemies/MiDrone.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Enemies/PartyGhost.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Textures/bg/rail_trans.png" type="Texture" id=13]
+[ext_resource path="res://Scenes/interactables/DevilWSword.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/interactables/PistolPickUp.tscn" type="PackedScene" id=15]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ParallaxLayer
@@ -32,6 +34,19 @@ func _process(delta):
 	motion_offset.x += speed * delta;
 "
 
+[sub_resource type="DynamicFont" id=6]
+size = 24
+font_data = ExtResource( 7 )
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Label
+
+
+
+func _on_Timer_timeout():
+	queue_free();
+"
+
 [sub_resource type="NavigationPolygon" id=4]
 vertices = PoolVector2Array( 39, 113, 542, 115, 544, 290, 38, 284, 1116, 111, 1121, 280, 621, 280, 618, 108, 624, -104, 1127, -104, 1127, 62, 623, 66, 1699, 109, 1702, 279, 1200, 282, 1198, 109 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7 ), PoolIntArray( 8, 9, 10, 11 ), PoolIntArray( 12, 13, 14, 15 ) ]
@@ -47,7 +62,11 @@ script = ExtResource( 1 )
 nav_air = NodePath("nav_air")
 nav_ground = NodePath("nav_ground")
 UI = NodePath("CanvasLayer/Control")
-start_train = NodePath("Train")
+start_train = NodePath("trains/Train")
+ghost = ExtResource( 12 )
+drone = ExtResource( 11 )
+snail = ExtResource( 9 )
+bombs = ExtResource( 8 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_offset = Vector2( -1, 0 )
@@ -90,43 +109,58 @@ region_enabled = true
 region_rect = Rect2( -480, 160, 864, 80 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 445, 199 )
+position = Vector2( 178, 202 )
 rotation = 4.46638e-06
 current = true
 smoothing_enabled = true
 
-[node name="Train" parent="." instance=ExtResource( 2 )]
+[node name="trains" type="Node2D" parent="."]
+
+[node name="Train" parent="trains" instance=ExtResource( 2 )]
 position = Vector2( 289, 210 )
 
-[node name="Train3" parent="." instance=ExtResource( 2 )]
+[node name="Train3" parent="trains" instance=ExtResource( 2 )]
 position = Vector2( 876, -9 )
 nodes_to_animate = PoolStringArray( "Gun" )
 
-[node name="DevilWSword" parent="Train3" instance=ExtResource( 10 )]
-position = Vector2( -5, -35 )
-
-[node name="Train2" parent="." instance=ExtResource( 2 )]
+[node name="Train2" parent="trains" instance=ExtResource( 2 )]
 position = Vector2( 870, 206 )
 
-[node name="Train4" parent="." instance=ExtResource( 2 )]
+[node name="Ice" parent="trains/Train2" instance=ExtResource( 3 )]
+position = Vector2( 9, -20 )
+
+[node name="Icon" parent="trains/Train2/Ice" index="0"]
+region_rect = Rect2( -2544, 144, 96, 64 )
+
+[node name="CollisionShape2D" parent="trains/Train2/Ice" index="1"]
+position = Vector2( 0.5, -0.5 )
+
+[node name="Train4" parent="trains" instance=ExtResource( 2 )]
 position = Vector2( 1450, 204 )
 nodes_to_animate = PoolStringArray( "Ice" )
 
-[node name="Ice" parent="Train4" instance=ExtResource( 3 )]
-position = Vector2( -17, -13 )
-
-[node name="Icon" parent="Train4/Ice" index="0"]
-region_rect = Rect2( -2544, 144, 96, 64 )
-
-[node name="CollisionShape2D" parent="Train4/Ice" index="1"]
-position = Vector2( 0.5, -0.5 )
-
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 445, 199 )
+position = Vector2( 178, 202 )
 rotation = 6.28319
 
 [node name="RemoteTransform2D" parent="Player" index="9"]
 remote_path = NodePath("../../Camera2D")
+
+[node name="Label" type="Label" parent="Player"]
+margin_left = -200.001
+margin_top = -138.999
+margin_right = 205.999
+margin_bottom = -63.9991
+custom_fonts/font = SubResource( 6 )
+text = "[WASD] - move
+[F] - pick up weapons
+[Space] - jump between trains"
+align = 1
+script = SubResource( 7 )
+
+[node name="Timer" type="Timer" parent="Player/Label"]
+wait_time = 5.0
+autostart = true
 
 [node name="nav_ground" type="Navigation2D" parent="."]
 visible = false
@@ -140,42 +174,65 @@ visible = false
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="nav_air"]
 navpoly = SubResource( 3 )
 
-[node name="WeaponPickUp2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 924, 192 )
-
-[node name="WeaponPickUp" parent="WeaponPickUp2" instance=ExtResource( 8 )]
-position = Vector2( -228, -19 )
-
-[node name="WeaponPickUp2" parent="WeaponPickUp2" instance=ExtResource( 8 )]
-position = Vector2( -168, 35 )
-
 [node name="enemies" type="Node2D" parent="."]
 position = Vector2( 2331, -356 )
 
-[node name="Enemy5" parent="enemies" instance=ExtResource( 11 )]
-position = Vector2( 1523, 422 )
+[node name="pickups" type="Node2D" parent="."]
 
-[node name="Enemy6" parent="enemies" instance=ExtResource( 11 )]
-position = Vector2( 1327, 559 )
+[node name="WeaponPickUp" parent="pickups" instance=ExtResource( 15 )]
+position = Vector2( 461, 187 )
 
-[node name="Enemy11" parent="enemies" instance=ExtResource( 12 )]
-position = Vector2( 1283, 18 )
+[node name="WeaponPickUp2" parent="pickups" instance=ExtResource( 10 )]
+visible = false
+position = Vector2( 880, 185 )
 
-[node name="Enemy15" parent="enemies" instance=ExtResource( 12 )]
-position = Vector2( 441, 470 )
+[node name="CollisionShape2D" parent="pickups/WeaponPickUp2" index="1"]
+disabled = true
 
-[node name="Enemy16" parent="enemies" instance=ExtResource( 12 )]
-position = Vector2( 8, 40 )
+[node name="Timer" type="Timer" parent="pickups/WeaponPickUp2"]
+wait_time = 30.0
+autostart = true
 
-[node name="Snail" parent="enemies" instance=ExtResource( 9 )]
-position = Vector2( -732, 545 )
+[node name="DevilWSword" parent="pickups" instance=ExtResource( 14 )]
+visible = false
+position = Vector2( 878, -50 )
 
-[node name="Snail3" parent="enemies" instance=ExtResource( 9 )]
-position = Vector2( -1351, 339 )
+[node name="AnimatedSprite" parent="pickups/DevilWSword" index="1"]
+frame = 1
+
+[node name="CollisionShape2D" parent="pickups/DevilWSword/WeaponPickUp" index="1"]
+disabled = true
+
+[node name="Timer2" type="Timer" parent="pickups/DevilWSword"]
+wait_time = 100.0
+one_shot = true
+autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource( 6 )]
 
-[editable path="Train4/Ice"]
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="Timer3" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[connection signal="timeout" from="Player/Label/Timer" to="." method="_on_tutorial_timeout"]
+[connection signal="timeout" from="pickups/WeaponPickUp2/Timer" to="." method="_on_shotgun_timeout"]
+[connection signal="timeout" from="pickups/DevilWSword/Timer2" to="." method="_on_sword_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_spawn"]
+[connection signal="timeout" from="Timer2" to="." method="_on_shorten"]
+[connection signal="timeout" from="Timer3" to="." method="_on_bomb_timeout"]
+
+[editable path="trains/Train2/Ice"]
 [editable path="Player"]
+[editable path="pickups/WeaponPickUp2"]
+[editable path="pickups/DevilWSword"]
+[editable path="pickups/DevilWSword/WeaponPickUp"]

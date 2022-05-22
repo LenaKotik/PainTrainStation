@@ -8,6 +8,7 @@ export var rotation_applied : float;
 export var deflectable : bool;
 
 onready var visNot : VisibilityNotifier2D = $VisibilityNotifier2D;
+onready var sprite : Sprite = $Bullet1;
 
 func _ready():
 	self.connect("area_entered", self, "collided");
@@ -24,3 +25,6 @@ func _process(delta):
 func collided(area : Node):
 	if deflectable and "sword" in area.get_groups(): return;
 	queue_free();
+
+func set_color(c : Color):
+	sprite.self_modulate = c;

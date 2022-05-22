@@ -1,8 +1,13 @@
 extends Control
 
+export var cloud : PackedScene;
+export var starting_clouds : int;
+
 onready var settingsA : AnimationPlayer = $anims/SettingsA;
 onready var settings : Control = $Settings;
 onready var startA : AnimationPlayer = $anims/StartA;
+onready var clouds_tmr : Timer = $CloudTimer;
+onready var clouds : Node2D = $clouds;
 
 func load_inputs():
 	var f = File.new();
@@ -12,6 +17,7 @@ func load_inputs():
 	for pair in data.split(";"):
 		var action = pair.split(":")[0];
 		InputMap.action_erase_events(action);
+		if pair.split(":").size() < 2: continue;
 		var events = pair.split(":")[1].split(",") as PoolStringArray; 
 		if events.size() > 0:
 			InputMap.action_add_event(action, get_event_from_str(events[0]));
@@ -50,6 +56,17 @@ func get_event_readable(e : InputEvent) -> String:
 func _ready():
 	load_inputs();
 	settings.start();
+	clouds_tmr.connect("timeout", self, "make_cloud");
+	for _i in range(starting_clouds):
+		var C = cloud.instance();
+		clouds.add_child(C);
+		C.global_position.x = rand_range(0, 700);
+		
+	$Player.can_move = false;
+
+func make_cloud():
+	var C = cloud.instance();
+	clouds.add_child(C)
 
 func play_pressed():
 	startA.play("def");

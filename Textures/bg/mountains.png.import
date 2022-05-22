@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/devil.png-c200a807f5c548f9dcfc05b689293d3c.stex"
+path="res://.import/mountains.png-61fe87c14313e13a1b451d554e09422c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/obstacles/devil.png"
-dest_files=[ "res://.import/devil.png-c200a807f5c548f9dcfc05b689293d3c.stex" ]
+source_file="res://Textures/bg/mountains.png"
+dest_files=[ "res://.import/mountains.png-61fe87c14313e13a1b451d554e09422c.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=2
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

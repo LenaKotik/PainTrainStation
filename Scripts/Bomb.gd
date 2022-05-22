@@ -28,4 +28,4 @@ func explode():
 		P.knock_back = knock_back;
 		P.direction = Vector2.RIGHT.rotated(rot);
 		P.speed = proj_speed;
-	get_parent()
+	queue_free();

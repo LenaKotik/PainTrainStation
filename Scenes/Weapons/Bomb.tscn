@@ -4,11 +4,12 @@
 [ext_resource path="res://Textures/weapons/bombs.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Projectiles/bomb.tscn" type="PackedScene" id=3]
 
-[node name="Gun" type="Sprite"]
+[node name="Bomb" type="Sprite"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 knock_back = 30.0
+id = 3
 throwable = ExtResource( 3 )
 dmg = 15.0
 speed = 1.0

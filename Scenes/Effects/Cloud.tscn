@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Textures/bg/clouds.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Cloud.gd" type="Script" id=2]
+
+[node name="Sprite" type="Sprite"]
+texture = ExtResource( 1 )
+hframes = 2
+vframes = 4
+script = ExtResource( 2 )
+total_frames = 8
+size_min_max = Vector2( 2, 3 )
+y_min_max = Vector2( 0, 160 )
+speed_min_max = Vector2( 20, 50 )

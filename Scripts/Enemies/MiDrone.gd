@@ -66,7 +66,7 @@ func shoot():
 	get_tree().current_scene.add_child(P);
 
 	P.global_position = global_position;
-	P.modulate = Color.crimson;
+	P.set_color(Color.crimson);
 	P.collision_mask = 32; # player
 	P.speed = proj_speed;
 	P.knock_back = proj_knock_back;

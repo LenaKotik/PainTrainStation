@@ -20,7 +20,18 @@ func add_weapon(w : Weapon):
 func remove_weapon(w : Weapon):
 	emit_signal("weapon_removed", get_children().find(w));
 	remove_child(w);
-
+	ptr = 0;
+func remove_throwable(t : Throwable):
+	emit_signal("weapon_removed", get_children().find(t));
+	t.amount -= 1;
+	if t.amount == 0: 
+		remove_child(t);
+		ptr = 0;
+func get_by_id(id : int):
+	for wep in get_children():
+		if wep.id == id:
+			return wep;
+	return null;
 func _process(_delta):
 	if get_child_count() == 0:
 		return;
@@ -30,7 +41,6 @@ func _process(_delta):
 	if tmr.is_stopped():
 		set_ptr(ptr + Input.get_action_strength("next_weapon") - Input.get_action_strength("prev_weapon"));
 		tmr.start();
-	
 	for i in range(get_child_count()):
 		get_children()[i].visible = (i == ptr);
 	var current : Weapon = get_children()[ptr] as Weapon;
@@ -42,3 +52,5 @@ func _process(_delta):
 			current.shoot();
 		else: if current is Melee:
 			current.swing();
+		else: if current is Throwable:
+			current.throw();

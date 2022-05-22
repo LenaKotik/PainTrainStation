@@ -6,6 +6,7 @@ export var dead_zone : float;
 export var freedom_radius : float;
 export var speed : float;
 export var home : Vector2;
+export var death_effect : PackedScene;
 
 var des : Vector2;
 var is_walking : bool = false;
@@ -26,3 +27,10 @@ func _process(delta):
 	else:
 		$AnimationPlayer.stop();
 		is_walking = false;
+
+
+func _on_Area2D_area_entered(_area):
+	var E = death_effect.instance() as Node2D;
+	get_tree().current_scene.add_child(E);
+	E.global_position = global_position;
+	queue_free()

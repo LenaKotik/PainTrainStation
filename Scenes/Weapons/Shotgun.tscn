@@ -10,6 +10,7 @@ texture = ExtResource( 3 )
 offset = Vector2( 10, 0 )
 script = ExtResource( 2 )
 knock_back = 2.0
+id = 1
 projectile = ExtResource( 1 )
 spread = 90.0
 amount = 5

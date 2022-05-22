@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Theme/stylebox2_bottomless.tres" type="StyleBox" id=1]
 [ext_resource path="res://Textures/weapons/shotgun.png" type="Texture" id=2]
 [ext_resource path="res://Theme/stylebox1.tres" type="StyleBox" id=3]
+[ext_resource path="res://Theme/UndertaleFont/undertale battle font_0.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="GDScript" id=5]
 script/source = "extends Panel
@@ -14,7 +15,19 @@ func select(v:bool):
 	if v: $WeaponDisplay/AnimationPlayer.play(\"up\");
 	else: $WeaponDisplay/AnimationPlayer.play(\"down\");
 
+func is_equal(t : Texture) -> bool:
+	return $WeaponDisplay/TextureRect.texture == t;
 
+func increment():
+	var value = int($Label.text) +1;
+	$Label.text = str(value);
+	$Label.visible = value != 1;
+	if value == 0: queue_free();
+func decrement():
+	var value = int($Label.text) -1;
+	$Label.text = str(value);
+	$Label.visible = value != 1;
+	if value == 0: queue_free();
 "
 
 [sub_resource type="Animation" id=3]
@@ -62,6 +75,10 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -60 ) ]
 }
 
+[sub_resource type="DynamicFont" id=6]
+size = 24
+font_data = ExtResource( 4 )
+
 [node name="WeaponDisplay" type="Panel"]
 margin_right = 60.0
 margin_bottom = 60.0
@@ -73,8 +90,8 @@ script = SubResource( 5 )
 [node name="WeaponDisplay" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 60.0
-margin_bottom = 120.0
+margin_right = 120.0
+margin_bottom = 180.0
 rect_min_size = Vector2( 60, 60 )
 size_flags_vertical = 3
 custom_styles/panel = ExtResource( 1 )
@@ -85,7 +102,7 @@ anchor_bottom = 1.0
 margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
-margin_bottom = -5.0
+margin_bottom = -148.0
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 5
@@ -94,3 +111,12 @@ stretch_mode = 5
 anims/RESET = SubResource( 3 )
 anims/down = SubResource( 2 )
 anims/up = SubResource( 4 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = 5.0
+margin_top = 6.0
+margin_right = 45.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 6 )
+text = "1"

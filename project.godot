@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Player.gd"
 }, {
+"base": "Weapon",
+"class": "Throwable",
+"language": "GDScript",
+"path": "res://Scripts/Abstracts/Throwable.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Train",
 "language": "GDScript",
@@ -68,13 +73,15 @@ _global_script_class_icons={
 "Level": "",
 "Melee": "",
 "Player": "",
+"Throwable": "",
 "Train": "",
 "Weapon": ""
 }
 
 [application]
 
-config/name="PainTrainStation"
+config/name="RailWayToHell"
+config/description="Made for Godot Wild Game Jam #45"
 run/main_scene="res://Scenes/UI/MainMenu.tscn"
 config/use_custom_user_dir=true
 config/icon="res://icon.png"
@@ -172,10 +179,6 @@ attack={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
-}
-dash={
-"deadzone": 0.5,
-"events": [  ]
 }
 jump={
 "deadzone": 0.5,
