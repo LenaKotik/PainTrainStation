@@ -3,7 +3,6 @@ extends Enemy
 export var use_line : bool;
 export var line_color : Color;
 export var projectile : PackedScene;
-export var death_effect : PackedScene;
 export var proj_speed : float;
 export var proj_knock_back : float;
 export var proj_dmg : float;
@@ -14,6 +13,7 @@ var phi : float = 0;
 
 onready var tmr : Timer = $ShootInterval;
 onready var sprite : AnimatedSprite = $AnimatedSprite;
+onready var HP_rot : Node2D = $HP_rotor;
 
 func _ready():
 	tmr.connect("timeout", self, "shoot");
@@ -32,11 +32,10 @@ func _process(delta):
 	if velocity.x != 0:
 		sprite.flip_h = velocity.x > 0;
 		rotation_degrees = velocity.x /3
+		HP_rot.rotation_degrees = -velocity.x /3
 
 func on_death():
 	if use_line: line.queue_free();
-	var E = death_effect.instance();
-	get_tree().current_scene.add_child(E);
 
 func get_direction():
 	if get_tree().current_scene.player == null: return Vector2.ZERO;

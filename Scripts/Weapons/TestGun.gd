@@ -15,7 +15,7 @@ func shoot():
 	get_tree().current_scene.add_child(P);
 	P.knock_back = knock_back;
 	P.global_position = global_position;
-	P.direction = (get_global_mouse_position() - global_position).normalized();
+	P.direction = (get_global_mouse_position() - get_parent().get_parent().global_position).normalized();
 	P.global_position += P.direction * proj_start_distance;
 	P.speed = proj_speed;
 	P.dmg = proj_dmg;

@@ -1,6 +1,9 @@
 extends Weapon
 class_name Melee
 
+export var hit_eff : PackedScene;
+export var force : float;
+
 var is_up : bool;
 
 onready var HB_coll : CollisionShape2D = $HurtBox/CollisionShape2D;
@@ -16,13 +19,19 @@ func _ready():
 	HB.connect("area_entered", self, "collided");
 
 func collided(area : Area2D):
-	if "missle" in area.get_groups(): return;
+	if "missle" in area.get_groups(): 
+		area.velocity += (area.global_position-global_position).normalized()*force;
+		return;
 	if "projectile" in area.get_groups():
 		area.direction = -area.direction;
 		area.modulate = Color.blue;
+		area.dmg *= 2;
 		area.collision_mask = 64
 	else:
 		HB_coll.set_deferred("disabled", true);
+		var E = hit_eff.instance() as Node2D;
+		get_tree().current_scene.add_child(E);
+		E.global_position = area.global_position;
 
 func anim_end():
 	rotation = end_rot;
@@ -44,5 +53,4 @@ func swing():
 
 func _process(delta):
 	if anim_tmr.is_stopped(): return;
-	print("swong indeed");
 	rotation = lerp(start_rot, end_rot, 1-(anim_tmr.time_left/anim_tmr.wait_time));

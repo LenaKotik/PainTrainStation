@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/BombThrower.gd" type="Script" id=1]
+[ext_resource path="res://Textures/weapons/bombs.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Projectiles/bomb.tscn" type="PackedScene" id=3]
+
+[node name="Gun" type="Sprite"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+knock_back = 30.0
+throwable = ExtResource( 3 )
+dmg = 15.0
+speed = 1.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 2, -6 )
+local_coords = false
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+scale_amount = 3.0
+scale_amount_random = 0.5
+color = Color( 0.858824, 0.47451, 0.0745098, 1 )

@@ -108,7 +108,7 @@ anims/idle = SubResource( 14 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 11 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="WeaponPickUp" parent="." instance=ExtResource( 1 )]

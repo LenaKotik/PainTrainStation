@@ -50,5 +50,5 @@ func get_event_readable(e : InputEvent) -> String:
 	if e is InputEventKey:
 		return OS.get_scancode_string(e.physical_scancode);
 	elif e is InputEventMouseButton:
-		return ("M%s" % e.button_index);
+		return ("Mouse%s" % e.button_index);
 	else: return "";

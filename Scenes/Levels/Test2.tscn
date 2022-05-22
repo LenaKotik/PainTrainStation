@@ -1,15 +1,18 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/TrainLevel.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Obstacles/Train.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Obstacles/Ice.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Textures/bg/wall_tile.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/UI/UI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/interactables/ShotgunPickUp.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/interactables/BombPickUp.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Enemies/Snail.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/interactables/DevilWSword.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Enemies/MiDrone.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Enemies/PartyGhost.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Textures/bg/rail.png" type="Texture" id=13]
+[ext_resource path="res://Textures/bg/rail_trans.png" type="Texture" id=13]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ParallaxLayer
@@ -43,6 +46,7 @@ outlines = [ PoolVector2Array( 1846, -231, 1846, 439, -190, 439, -190, -214 ) ]
 script = ExtResource( 1 )
 nav_air = NodePath("nav_air")
 nav_ground = NodePath("nav_ground")
+UI = NodePath("CanvasLayer/Control")
 start_train = NodePath("Train")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -74,6 +78,17 @@ texture = ExtResource( 13 )
 region_enabled = true
 region_rect = Rect2( -480, 160, 864, 80 )
 
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 864, 0 )
+script = SubResource( 5 )
+speed = -300.0
+
+[node name="Rail" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 416, 134 )
+texture = ExtResource( 13 )
+region_enabled = true
+region_rect = Rect2( -480, 160, 864, 80 )
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 445, 199 )
 rotation = 4.46638e-06
@@ -87,14 +102,11 @@ position = Vector2( 289, 210 )
 position = Vector2( 876, -9 )
 nodes_to_animate = PoolStringArray( "Gun" )
 
-[node name="Snail2" parent="Train3" instance=ExtResource( 9 )]
-position = Vector2( 140, -20 )
+[node name="DevilWSword" parent="Train3" instance=ExtResource( 10 )]
+position = Vector2( -5, -35 )
 
 [node name="Train2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 870, 206 )
-
-[node name="Snail3" parent="Train2" instance=ExtResource( 9 )]
-position = Vector2( 138, -9 )
 
 [node name="Train4" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1450, 204 )
@@ -108,12 +120,6 @@ region_rect = Rect2( -2544, 144, 96, 64 )
 
 [node name="CollisionShape2D" parent="Train4/Ice" index="1"]
 position = Vector2( 0.5, -0.5 )
-
-[node name="Snail" parent="Train4" instance=ExtResource( 9 )]
-position = Vector2( 149, -15 )
-
-[node name="Snail3" parent="Train4" instance=ExtResource( 9 )]
-position = Vector2( -171, -28 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 445, 199 )
@@ -134,31 +140,42 @@ visible = false
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="nav_air"]
 navpoly = SubResource( 3 )
 
-[node name="DevilWSword" parent="." instance=ExtResource( 10 )]
-position = Vector2( 879, -48 )
+[node name="WeaponPickUp2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 924, 192 )
 
-[node name="air_enemies" type="Node2D" parent="."]
+[node name="WeaponPickUp" parent="WeaponPickUp2" instance=ExtResource( 8 )]
+position = Vector2( -228, -19 )
 
-[node name="Enemy" parent="air_enemies" instance=ExtResource( 11 )]
-position = Vector2( 509, 24 )
+[node name="WeaponPickUp2" parent="WeaponPickUp2" instance=ExtResource( 8 )]
+position = Vector2( -168, 35 )
 
-[node name="Enemy5" parent="air_enemies" instance=ExtResource( 11 )]
+[node name="enemies" type="Node2D" parent="."]
+position = Vector2( 2331, -356 )
+
+[node name="Enemy5" parent="enemies" instance=ExtResource( 11 )]
 position = Vector2( 1523, 422 )
 
-[node name="Enemy6" parent="air_enemies" instance=ExtResource( 11 )]
+[node name="Enemy6" parent="enemies" instance=ExtResource( 11 )]
 position = Vector2( 1327, 559 )
 
-[node name="Enemy10" parent="air_enemies" instance=ExtResource( 12 )]
-position = Vector2( 111, 251 )
-
-[node name="Enemy11" parent="air_enemies" instance=ExtResource( 12 )]
+[node name="Enemy11" parent="enemies" instance=ExtResource( 12 )]
 position = Vector2( 1283, 18 )
 
-[node name="Enemy15" parent="air_enemies" instance=ExtResource( 12 )]
+[node name="Enemy15" parent="enemies" instance=ExtResource( 12 )]
 position = Vector2( 441, 470 )
 
-[node name="Enemy16" parent="air_enemies" instance=ExtResource( 12 )]
+[node name="Enemy16" parent="enemies" instance=ExtResource( 12 )]
 position = Vector2( 8, 40 )
+
+[node name="Snail" parent="enemies" instance=ExtResource( 9 )]
+position = Vector2( -732, 545 )
+
+[node name="Snail3" parent="enemies" instance=ExtResource( 9 )]
+position = Vector2( -1351, 339 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource( 6 )]
 
 [editable path="Train4/Ice"]
 [editable path="Player"]

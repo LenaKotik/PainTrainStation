@@ -1,6 +1,12 @@
 extends Actor
 class_name Player
 
+signal hp_changed(new_hp);
+signal ptr_changed(new_ptr);
+signal weapon_added(texture);
+signal weapon_removed(idx);
+signal died;
+
 export var max_hp : float;
 
 onready var sprite : Sprite = $Octopus;
@@ -20,17 +26,26 @@ func set_hp(value : float):
 	if hp > value:
 		anim.play("hurt");
 	hp = max(0, value);
+	emit_signal("hp_changed", hp);
 	if (hp == 0):
 		die();
 
 func die():
 	get_parent().player = null;
+	emit_signal("died");
 	queue_free();
 
 func _ready():
 	hp = max_hp;
 	HB.connect("area_entered", self, "on_collided");
+	inventory.connect("ptr_changed", self, "on_ptr_changed");
+	inventory.connect("weapon_removed", self, "on_weapon_removed");
 	rand_init();
+
+func on_ptr_changed(new : int):
+	emit_signal("ptr_changed", new);
+func on_weapon_removed(idx : int):
+	emit_signal("weapon_removed", idx);
 
 func set_collision(value : bool):
 	HB_coll.disabled = !value;
@@ -39,9 +54,9 @@ func set_collision(value : bool):
 func rand_init():
 	randomize();
 	
-	var mouths = ["res://Textures/mc/Mouth/3.png"];
-	var eyes = ["res://Textures/mc/Eyes/1.png", "res://Textures/mc/Eyes/2.png"];
-	var hats = ["res://Textures/mc/Hat/4.png", "res://Textures/mc/Hat/5.png", "res://Textures/mc/Hat/6.png", "res://Textures/mc/Hat/7.png"];
+	var eyes = ["res://Textures/mc/Eyes/1.png", "res://Textures/mc/Eyes/2.png", "res://Textures/mc/Eyes/3.png", "res://Textures/mc/Eyes/4.png"];
+	var hats = ["res://Textures/mc/Hat/9.png", "res://Textures/mc/Hat/10.png", "res://Textures/mc/Hat/11.png", "res://Textures/mc/Hat/12.png", "res://Textures/mc/Hat/13.png", "res://Textures/mc/Hat/14.png", "res://Textures/mc/Hat/15.png"];
+	var mouths = ["res://Textures/mc/Mouth/3.png", "res://Textures/mc/Mouth/5.png", "res://Textures/mc/Mouth/6.png", "res://Textures/mc/Mouth/7.png", "res://Textures/mc/Mouth/8.png"];
 	var colors = [Color.blue, Color.crimson, Color.darkolivegreen, Color.darkorange, Color.darkmagenta, Color.darkcyan, Color.aqua, Color.green];
 	for arr in [mouths, eyes, hats, colors]: arr.shuffle()
 	
@@ -66,6 +81,7 @@ func _process(_delta : float) -> void:
 			s.flip_h = velocity.x < 0;
 
 func add_weapon(w : Weapon):
+	emit_signal("weapon_added", w.texture);
 	inventory.add_weapon(w);
 
 func on_collided(area : Area2D):

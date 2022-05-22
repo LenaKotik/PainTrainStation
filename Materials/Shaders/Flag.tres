@@ -1,0 +1,21 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float speed = 2.0;
+uniform float frequency_y = 5.0;
+uniform float frequency_x = 5.0;
+uniform float amplitude_y = 50.0;
+uniform float amplitude_x = 25.0;
+uniform float inclination = 50.0;
+uniform vec4 color : hint_color;
+
+void vertex() {
+	VERTEX.y += sin((1.0-UV.x - TIME * speed) * frequency_y) * amplitude_y * (1.0 - UV.x);
+	VERTEX.x += cos((1.0-UV.y - TIME * speed) * frequency_x) * amplitude_x * (1.0 -UV.x);
+	VERTEX.x -= UV.y * inclination;
+}
+void fragment() {
+	COLOR = vec4(color.rgb, texture(TEXTURE, UV).a);
+}"

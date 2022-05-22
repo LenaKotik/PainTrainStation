@@ -18,6 +18,7 @@ onready var shoot_cd : Timer = $shoot_cd;
 onready var shoot_delay : Timer = $shoot_delay;
 onready var anim_tmr : Timer = $anim_tmr;
 onready var HB_coll : CollisionShape2D = $HB/CollisionShape2D;
+onready var HP_rot : Node2D = $HP_rotor;
 
 var shootPos : Vector2 = Vector2(-16, 7);
 var anim_start : Vector2;
@@ -38,10 +39,12 @@ func anim_ended():
 	HB_coll.disabled = false;
 	can_move = true;
 	rotation = 0;
+	HP_rot.rotation = 0
 func _process(delta):
 	if !anim_tmr.is_stopped():
 		var t = 1-(anim_tmr.time_left / anim_tmr.wait_time);
 		rotation = TAU*lerp_angle(0, (TAU-1) * sign(anim_end.x-anim_start.x+1), t);
+		HP_rot.rotation = -TAU*lerp_angle(0, (TAU-1) * sign(anim_end.x-anim_start.x+1), t);
 		if t <= 0.5:
 			global_position = anim_start.cubic_interpolate(anim_mid, Vector2(anim_mid.x, anim_start.y), anim_end, t*2);
 		else:

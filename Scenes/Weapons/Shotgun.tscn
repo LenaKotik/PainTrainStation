@@ -15,7 +15,7 @@ spread = 90.0
 amount = 5
 delay = 0.3
 proj_speed = 200.0
-proj_dmg = 3.0
+proj_dmg = 5.0
 proj_start_distance = 50.0
 proj_rot = 10.0
 

@@ -1,9 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Enemies/Snial.gd" type="Script" id=1]
 [ext_resource path="res://Textures/enemies/will-you-bee-mine.png" type="Texture" id=2]
 [ext_resource path="res://Materials/Shaders/Silluette.tres" type="Shader" id=3]
 [ext_resource path="res://Scenes/Projectiles/Bee.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Theme/hp_bar_bg.tres" type="StyleBox" id=5]
+[ext_resource path="res://Theme/hp_bar_fg.tres" type="StyleBox" id=6]
+[ext_resource path="res://Scenes/Effects/Blood.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
@@ -55,8 +58,10 @@ script = ExtResource( 1 )
 speed = 25.0
 friction = 0.1
 particles_path = NodePath("FeetParticles")
+death_effect = ExtResource( 7 )
 HB = NodePath("HB")
 animPl = NodePath("AnimationPlayer")
+HealthBar = NodePath("HP_rotor/HealthBar")
 max_hp = 100.0
 dmg = 10.0
 knock_back = 20.0
@@ -112,3 +117,19 @@ one_shot = true
 
 [node name="anim_tmr" type="Timer" parent="."]
 one_shot = true
+
+[node name="HP_rotor" type="Node2D" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="HP_rotor"]
+margin_left = -16.0
+margin_top = 16.0
+margin_right = 16.0
+margin_bottom = 23.0
+custom_styles/fg = ExtResource( 6 )
+custom_styles/bg = ExtResource( 5 )
+step = 1.0
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_editor_description_": ""
+}

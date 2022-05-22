@@ -1,11 +1,13 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Scripts/Enemies/MiDrone.gd" type="Script" id=1]
 [ext_resource path="res://Textures/enemies/midron.png" type="Texture" id=2]
 [ext_resource path="res://Materials/Shaders/Silluette.tres" type="Shader" id=3]
 [ext_resource path="res://Scenes/Projectiles/Bullet.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Effects/Effect1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Effects/Explosion.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Textures/enemies/midron-agressive.png" type="Texture" id=6]
+[ext_resource path="res://Theme/hp_bar_bg.tres" type="StyleBox" id=7]
+[ext_resource path="res://Theme/hp_bar_fg.tres" type="StyleBox" id=8]
 
 [sub_resource type="ShaderMaterial" id=8]
 resource_local_to_scene = true
@@ -189,15 +191,16 @@ script = ExtResource( 1 )
 speed = 15.0
 friction = 0.1
 particles_path = NodePath("FeetParticles")
+death_effect = ExtResource( 5 )
 HB = NodePath("HB")
 animPl = NodePath("HurtAnim")
+HealthBar = NodePath("HP_rotor/HealthBar")
 max_hp = 100.0
 dmg = 2.0
 knock_back = 400.0
 is_air = true
 line_color = Color( 0.0941176, 0.278431, 1, 1 )
 projectile = ExtResource( 4 )
-death_effect = ExtResource( 5 )
 proj_speed = 400.0
 proj_knock_back = 20.0
 proj_dmg = 3.0
@@ -208,8 +211,9 @@ material = SubResource( 8 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 19 )
 animation = "idle"
-frame = 6
+frame = 8
 playing = true
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -235,3 +239,19 @@ local_coords = false
 
 [node name="ShootInterval" type="Timer" parent="."]
 autostart = true
+
+[node name="HP_rotor" type="Node2D" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="HP_rotor"]
+margin_left = -16.0
+margin_top = 17.0
+margin_right = 16.0
+margin_bottom = 24.0
+custom_styles/fg = ExtResource( 8 )
+custom_styles/bg = ExtResource( 7 )
+step = 1.0
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_editor_description_": ""
+}

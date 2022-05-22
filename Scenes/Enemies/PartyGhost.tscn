@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Enemies/PartyGhost.gd" type="Script" id=1]
 [ext_resource path="res://Textures/enemies/party-ghost.png" type="Texture" id=2]
 [ext_resource path="res://Materials/Shaders/Silluette.tres" type="Shader" id=3]
+[ext_resource path="res://Theme/hp_bar_bg.tres" type="StyleBox" id=4]
+[ext_resource path="res://Theme/hp_bar_fg.tres" type="StyleBox" id=5]
+[ext_resource path="res://Scenes/Effects/Smoke.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
@@ -52,8 +55,10 @@ script = ExtResource( 1 )
 speed = 10.0
 friction = 0.1
 particles_path = NodePath("FeetParticles")
+death_effect = ExtResource( 6 )
 HB = NodePath("HB")
 animPl = NodePath("AnimationPlayer")
+HealthBar = NodePath("HealthBar")
 max_hp = 100.0
 dmg = 5.0
 knock_back = 400.0
@@ -61,6 +66,7 @@ is_air = true
 line_color = Color( 0.968627, 0.164706, 0.164706, 1 )
 
 [node name="Icon" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.588235 )
 material = SubResource( 3 )
 position = Vector2( 0, 1 )
 scale = Vector2( 2, 2 )
@@ -89,3 +95,14 @@ emitting = false
 amount = 16
 randomness = 1.0
 local_coords = false
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+margin_left = -16.0
+margin_top = 26.0
+margin_right = 16.0
+margin_bottom = 33.0
+custom_styles/fg = ExtResource( 5 )
+custom_styles/bg = ExtResource( 4 )
+step = 1.0
+value = 50.0
+percent_visible = false

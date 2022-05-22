@@ -5,6 +5,11 @@ export var speed : float;
 export var dmg : float;
 export var knock_back : float;
 
+onready var sprite : AnimatedSprite = $AnimatedSprite;
+onready var particles : CPUParticles2D = $CPUParticles2D;
+onready var coll : CollisionShape2D = $CollisionShape2D;
+onready var delay : Timer = $death_delay;
+
 var velocity : Vector2 = Vector2.LEFT;
 var target : WeakRef;
 
@@ -14,7 +19,16 @@ func _process(delta):
 	global_position += velocity * delta * speed
 	rotation = (-velocity).angle();
 
-func _on_collided(area):
-	queue_free()
+func _on_collided(area : Area2D):
+	if !("sword" in area.get_groups()):
+		die();
 func _on_life_ended():
-	queue_free()
+	die();
+
+func die():
+	coll.set_deferred("disabled", true);
+	sprite.hide();
+	particles.emitting = false;
+	delay.start();
+	yield(delay, "timeout");
+	queue_free();

@@ -2,8 +2,10 @@ extends Actor
 class_name Enemy
 tool
 
+export var death_effect : PackedScene;
 export var HB : NodePath;
 export var animPl : NodePath;
+export var HealthBar : NodePath;
 export var max_hp : float;
 export var dmg : float;
 export var knock_back : float;
@@ -14,11 +16,14 @@ var hp : float setget set_hp;
 func _ready():
 	hp = max_hp;
 	get_node(HB).connect("area_entered", self, "on_HB_collided");
+	get_node(HealthBar).max_value = max_hp;
+	get_node(HealthBar).value = hp;
 
 func set_hp(value : float):
 	if value < hp: # hp decreased
 		get_node(animPl).play("hurt");
 	hp = clamp(value, 0 , max_hp);
+	get_node(HealthBar).value = hp;
 	if (hp == 0):
 		die();
 
@@ -34,6 +39,9 @@ func _get_configuration_warning():
 	return "";
 func die():
 	on_death();
+	var E = death_effect.instance() as Node2D;
+	get_tree().current_scene.add_child(E);
+	E.global_position = global_position;
 	queue_free();
 func on_death():
 	pass;

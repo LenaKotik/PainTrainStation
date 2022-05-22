@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/4.png-35e8b5aff1b0035a84137edcdb4f996e.stex"
+path="res://.import/8.png-6895f44135bceb0724498aec7f4caf03.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/mc/Hat/4.png"
-dest_files=[ "res://.import/4.png-35e8b5aff1b0035a84137edcdb4f996e.stex" ]
+source_file="res://Textures/mc/Mouth/8.png"
+dest_files=[ "res://.import/8.png-6895f44135bceb0724498aec7f4caf03.stex" ]
 
 [params]
 

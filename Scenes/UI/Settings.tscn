@@ -17,11 +17,6 @@ anchor_bottom = 1.0
 script = ExtResource( 1 )
 action_binding = ExtResource( 3 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.0705882, 0.282353, 0.54902, 1 )
-
 [node name="Inputs" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -68,7 +63,9 @@ valign = 1
 margin_right = 53.0
 margin_bottom = 25.0
 custom_fonts/font = SubResource( 2 )
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 text = "Back"
-
-[connection signal="pressed" from="Back" to="." method="_on_Go_Back"]

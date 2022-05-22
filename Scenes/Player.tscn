@@ -5,13 +5,15 @@
 [ext_resource path="res://Scripts/Inventory.gd" type="Script" id=3]
 [ext_resource path="res://Materials/Shaders/Silluette.tres" type="Shader" id=4]
 [ext_resource path="res://Textures/mc/Mouth/3.png" type="Texture" id=5]
-[ext_resource path="res://Textures/mc/Hat/4.png" type="Texture" id=6]
 [ext_resource path="res://Textures/mc/Eyes/1.png" type="Texture" id=7]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
 shader_param/color = Color( 1, 1, 1, 1 )
 shader_param/use = false
+
+[sub_resource type="StreamTexture" id=9]
+load_path = "res://.import/4.png-35e8b5aff1b0035a84137edcdb4f996e.stex"
 
 [sub_resource type="CircleShape2D" id=8]
 radius = 20.0
@@ -140,7 +142,7 @@ texture = ExtResource( 7 )
 [node name="Hat" type="Sprite" parent="."]
 position = Vector2( 0, -10 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = SubResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 8 )
@@ -168,7 +170,7 @@ position = Vector2( 27, 0 )
 script = ExtResource( 3 )
 
 [node name="Timer" type="Timer" parent="InventoryRotor"]
-wait_time = 0.05
+wait_time = 0.2
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

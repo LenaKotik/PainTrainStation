@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Weapons/Melee.gd" type="Script" id=1]
 [ext_resource path="res://Textures/weapons/sword.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Effects/Sword_hit.tscn" type="PackedScene" id=3]
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends Area2D
@@ -13,12 +14,20 @@ export var knock_back : float;
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.25, 4.75 )
 
+[sub_resource type="Curve" id=3]
+min_value = 1.0
+max_value = 2.0
+_data = [ Vector2( 0, 1.28231 ), 0.0, 0.0, 0, 0, Vector2( 1, 2 ), 0.0, 0.0, 0, 0 ]
+
 [node name="Sword" type="Sprite"]
-rotation = 1.5708
+rotation = -1.5708
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 offset = Vector2( 12, 0 )
 script = ExtResource( 1 )
+knock_back = 20.0
+hit_eff = ExtResource( 3 )
+force = 30.0
 
 [node name="HurtBox" type="Area2D" parent="." groups=["projectile", "sword"]]
 collision_layer = 128
@@ -31,6 +40,21 @@ knock_back = 20.0
 position = Vector2( 17.25, 0.25 )
 shape = SubResource( 1 )
 disabled = true
+
+[node name="idle" type="CPUParticles2D" parent="."]
+position = Vector2( 16, 0 )
+amount = 16
+local_coords = false
+emission_shape = 2
+emission_rect_extents = Vector2( 10, 3 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 10.0
+initial_velocity_random = 0.29
+scale_amount = 2.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 3 )
+color = Color( 0, 0.431373, 1, 0.356863 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
